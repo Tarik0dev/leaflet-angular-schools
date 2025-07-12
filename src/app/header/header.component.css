@@ -1,0 +1,5 @@
+header { background-color: rgb(176, 211, 225);padding: 20px;}
+nav {display: flex;justify-content: space-between;align-items: center;}
+li {list-style: none;display: inline;}
+a {text-decoration: none;color: black;margin: 10px;font-size: 1.2em;}
+a:hover {color: rgb(45, 191, 201);}

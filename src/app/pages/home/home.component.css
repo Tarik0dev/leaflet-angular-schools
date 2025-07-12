@@ -1,0 +1,11 @@
+#wrapper {
+  display: flex;
+}
+#mapDisplay {
+  height: 600px;
+  width: 70%;
+}
+#infoDisplay {
+  height: 600px;
+  width: 30%;
+}

@@ -1,0 +1,19 @@
+/* Étendre le composant sur toute la hauteur de la fenêtre */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Conteneur principal */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Contenu principal qui pousse le footer vers le bas */
+main {
+  flex-grow: 1;
+  padding: 20px;
+}
