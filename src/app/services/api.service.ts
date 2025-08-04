@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SchoolsResult, Results } from '../models/interfaceSchool';
+import { SchoolsResult } from '../models/interfaceSchool';
 import { Observable } from 'rxjs';
 
 @Injectable({
