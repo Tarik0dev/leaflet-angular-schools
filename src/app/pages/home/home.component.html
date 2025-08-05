@@ -1,9 +1,20 @@
 <h2>Etablissements de France</h2>
 <div id="wrapper">
   <div id="map"></div>
+  @if(selectedMarker) {
   <div id="infoDisplay">
 
-    <h3>Établissement : </h3>
+    <h3>Établissement sélectionné : </h3>
+
+    <p><strong>Nom :</strong> {{ selectedMarker.nom_etablissement }}</p>
+    <p><strong>Type :</strong> {{ selectedMarker.type_etablissement }}</p>
+    <p><strong>Statut :</strong> {{ selectedMarker.statut_public_prive }}</p>
+    <p><strong>Adresse :</strong> {{ getFullAddress(selectedMarker) }}</p>
+
+
+    <button (click)="goToForm(selectedMarker.identifiant_de_l_etablissement)">Envoyer une demande</button>
+
 
   </div>
+  }
 </div>

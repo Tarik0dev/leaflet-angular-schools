@@ -1,15 +1,18 @@
 export interface SchoolsResult {
-
-    results : Results[];
+  results: Results[];
 }
 
 export interface Results {
-
-
-nom_etablissement : string;
-position: {
-    lon: number,
+  identifiant_de_l_etablissement: string;
+  nom_etablissement: string;
+  type_etablissement: string;
+  statut_public_prive: string;
+  adresse_1: string;
+  adresse_2: string;
+  adresse_3: string;
+  mail: string;
+  position: {
+    lon: number;
     lat: number;
+  };
 }
-}
-

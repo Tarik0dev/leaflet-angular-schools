@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SchoolsResult } from '../models/interfaceSchool';
+import { Results, SchoolsResult } from '../models/interfaceSchool';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,5 +20,10 @@ export class ApiService {
     const locationParameterEncoded = encodeURIComponent(locationParameter);
 
     return this.http.get<SchoolsResult>(this.apiUrl + locationParameterEncoded);
+  }
+
+  getEtablissementById(id: string): Observable<SchoolsResult> {
+    const searchParameter = `search(identifiant_de_l_etablissement, "${id}")`;
+    return this.http.get<SchoolsResult>(this.apiUrl + searchParameter + "&limit=1");
   }
 }

@@ -1,22 +1,26 @@
 
 import * as L from 'leaflet';
 import { ApiService } from '../../services/api.service';
-import { SchoolsResult } from '../../models/interfaceSchool';
+import { Results, SchoolsResult } from '../../models/interfaceSchool';
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
+
 })
 export class HomeComponent implements AfterViewInit {
   private map: L.Map | undefined;
   apiResult: SchoolsResult['results'] = [];
   schoolMarkers: L.Marker[] = [];
    // Tableau des écoles
+  selectedMarker?: Results;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   ngAfterViewInit(): void {
     this.map = L.map('map').setView([51.505, -0.09], 13);
@@ -62,6 +66,9 @@ export class HomeComponent implements AfterViewInit {
       this.apiResult = data.results;
       this.apiResult.forEach(res => {
         const marker = L.marker([res.position.lat, res.position.lon])
+          .addEventListener("click", () => {
+            this.selectedMarker = res;
+          })
           .addTo(this.map!)
           .bindPopup(`École : ${res.nom_etablissement}`);
         this.schoolMarkers.push(marker);
@@ -75,5 +82,17 @@ export class HomeComponent implements AfterViewInit {
     })
 
     this.schoolMarkers = [];
+  }
+
+  getFullAddress(marker: any): string {
+  return [marker.adresse_1, marker.adresse_2, marker.adresse_3]
+    .filter(Boolean)
+    .join(', ');
+}
+
+  goToForm(id: string | undefined) {
+    if (id) {
+      this.router.navigate(['/contact', id])
+    }
   }
 }

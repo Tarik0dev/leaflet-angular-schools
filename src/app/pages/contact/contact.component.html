@@ -1,2 +1,28 @@
-<p>contact works!</p>
-<a routerLink="/">Accueil</a>
+<div class="header">
+    <h2>Formulaire pour :</h2>
+    <h3>{{school?.nom_etablissement}}</h3>
+</div>
+<form (ngSubmit)="submitForm()" #formContact="ngForm">
+
+<div class="grp"><label for="name">Prénom :</label>
+<input type="text" name="name" [(ngModel)]="name"></div>
+
+<div class="grp"><label for="fname">Nom de famille :</label>
+<input type="text" name="fname" [(ngModel)]="fname"></div>
+
+<div class="grp"><label for="mail">Adresse electronique :</label>
+<input type="mail" name="mail" [(ngModel)]="mail"></div>
+
+<div class="grp"><label for="object">Objet de votre demande :</label>
+<input type="text" name="object" [(ngModel)]="object"></div>
+
+<div class="grp"><label for="message">Votre message :</label>
+<input type="textarea" name="message" [(ngModel)]="message" style="height: 300px;"></div>
+
+<div class="conditions"><label for="conditions">Veuillez accepter les conditions générales</label>
+<input type="checkbox" name="conditions" [(ngModel)]="conditionsAccepted" required ></div>
+
+
+<button type="submit">Envoyer</button>
+
+</form>

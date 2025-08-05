@@ -1,0 +1,77 @@
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grp {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.grp label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.grp input[type="text"],
+.grp input[type="mail"],
+.grp input[type="textarea"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.grp input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+
+label[for="conditions"] {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+.conditions {
+
+
+    display: flex;
+    align-items:end;
+    gap: 50px;
+
+}
+
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005a9c;
+}
