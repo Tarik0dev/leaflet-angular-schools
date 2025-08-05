@@ -8,10 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiUrl = 'https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?limit=100';
+  private apiUrl = 'https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=';
   constructor(private http: HttpClient) { }
 
-  getEtablissement(): Observable<SchoolsResult> {
-    return this.http.get<SchoolsResult>(this.apiUrl);
+  getEtablissement(searchArea: number[][][]): Observable<SchoolsResult> {
+    const geoJson = {
+      type: "Polygon",
+      coordinates: searchArea,
+    };
+    const locationParameter = `intersects(position, geom'${JSON.stringify(geoJson)}')`;
+    const locationParameterEncoded = encodeURIComponent(locationParameter);
+
+    return this.http.get<SchoolsResult>(this.apiUrl + locationParameterEncoded);
   }
 }

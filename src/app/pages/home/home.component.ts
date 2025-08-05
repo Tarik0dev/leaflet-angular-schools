@@ -2,6 +2,7 @@
 import * as L from 'leaflet';
 import { ApiService } from '../../services/api.service';
 import { SchoolsResult } from '../../models/interfaceSchool';
+import { Component, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,9 @@ import { SchoolsResult } from '../../models/interfaceSchool';
 })
 export class HomeComponent implements AfterViewInit {
   private map: L.Map | undefined;
-  schools: SchoolsResult['results'] = []; // Tableau des écoles
+  apiResult: SchoolsResult['results'] = [];
+  schoolMarkers: L.Marker[] = [];
+   // Tableau des écoles
 
   constructor(private api: ApiService) {}
 
@@ -32,14 +35,45 @@ export class HomeComponent implements AfterViewInit {
       console.log('Position :', e.latlng.lat, e.latlng.lng);
     });
 
+    this.map.on('moveend', () =>{
 
-    this.api.getEtablissement().subscribe(data => {
-      this.schools = data.results;
-      this.schools.forEach(school => {
-        L.marker([school.position.lat, school.position.lon])
+
+      if(this.map) {
+          const bounds = this.map?.getBounds();
+          const ne = bounds.getNorthEast();
+          const sw = bounds.getSouthWest();
+          const searchArea = [[
+            [sw.lng, sw.lat],
+            [ne.lng, sw.lat],
+            [ne.lng, ne.lat],
+            [sw.lng, ne.lat],
+            [sw.lng, sw.lat]
+          ]];
+
+          this.loadSchools(searchArea);
+      }
+    })
+
+  }
+
+  loadSchools(searchArea: number[][][]) {
+    this.cleanMarkers();
+    this.api.getEtablissement(searchArea).subscribe(data => {
+      this.apiResult = data.results;
+      this.apiResult.forEach(res => {
+        const marker = L.marker([res.position.lat, res.position.lon])
           .addTo(this.map!)
-          .bindPopup(`École : ${school.nom_etablissement}`);
+          .bindPopup(`École : ${res.nom_etablissement}`);
+        this.schoolMarkers.push(marker);
       });
     });
   }
-}import { Component, AfterViewInit } from '@angular/core';
+
+  cleanMarkers() {
+    this.schoolMarkers.forEach((schoolMarker) => {
+      this.map?.removeLayer(schoolMarker);
+    })
+
+    this.schoolMarkers = [];
+  }
+}

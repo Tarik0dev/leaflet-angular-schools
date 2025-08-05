@@ -16,4 +16,5 @@
 main {
   flex-grow: 1;
   padding: 20px;
+  background-color: rgb(213, 225, 234);
 }
